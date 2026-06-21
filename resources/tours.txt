@@ -1,5 +1,5 @@
-RutaLagos;Aventura;25000
-VolcanOsorno;Aventura;35000
-FrutillarCultural;Cultural;18000
-SaboresDelSur;Gastronomico;22000
-NavegacionLlanquihue;Lacustre;40000
+Ruta Lagos;Aventura;25000;Pedro Soto;987654321
+Volcan Osorno;Aventura;35000;Maria Perez;912345678
+Puerto Varas;Cultural;20000;Juan Diaz;998877665
+Frutillar;Cultural;28000;Ana Torres;956321478
+Saltos Petrohue;Naturaleza;30000;Carlos Ruiz;944556677
