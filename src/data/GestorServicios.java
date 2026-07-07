@@ -1,42 +1,66 @@
 package data;
 
-import model.RutaGastronomica;
-import model.PaseoLacustre;
+import java.util.ArrayList;
+import java.util.List;
+
 import model.ExcursionCultural;
+import model.PaseoLacustre;
+import model.RutaGastronomica;
+import model.ServicioTuristico;
 
 public class GestorServicios {
 
+    private List<ServicioTuristico> servicios;
+
+    public GestorServicios() {
+
+        servicios = new ArrayList<>();
+
+        servicios.add(new RutaGastronomica(
+                "Sabores de Puerto Varas",
+                3,
+                5));
+
+        servicios.add(new RutaGastronomica(
+                "Ruta de la Cerveza Artesanal",
+                4,
+                4));
+
+        servicios.add(new PaseoLacustre(
+                "Navegación Lago Llanquihue",
+                2,
+                "Catamarán"));
+
+        servicios.add(new PaseoLacustre(
+                "Travesía Isla de los Alerces",
+                5,
+                "Lancha"));
+
+        servicios.add(new ExcursionCultural(
+                "Iglesia de Achao",
+                2,
+                "Achao"));
+
+        servicios.add(new ExcursionCultural(
+                "Museo Colonial Alemán",
+                3,
+                "Frutillar"));
+    }
+
     public void mostrarServicios() {
 
-        RutaGastronomica ruta1 = new RutaGastronomica("Sabores de Puerto Varas", 3, 5);
-        RutaGastronomica ruta2 = new RutaGastronomica("Ruta de la Cerveza Artesanal", 4, 4);
+        System.out.println("========================================");
+        System.out.println("     SERVICIOS TURÍSTICOS");
+        System.out.println("========================================");
 
-        PaseoLacustre paseo1 = new PaseoLacustre("Navegacion Lago Llanquihue", 2, "Catamaran");
-        PaseoLacustre paseo2 = new PaseoLacustre("Travesia a la Isla de los Alerces", 5, "Lancha");
+        for (ServicioTuristico servicio : servicios) {
 
-        ExcursionCultural excursion1 = new ExcursionCultural("Iglesia de los Jesuitas", 2, "Iglesia de Achao");
-        ExcursionCultural excursion2 = new ExcursionCultural("Museo Colonial Aleman", 3, "Museo Colonial Aleman de Frutillar");
+            servicio.mostrarInformacion();
 
-        System.out.println("==================================");
-        System.out.println("      SERVICIOS TURISTICOS");
-        System.out.println("==================================");
-        System.out.println();
+            System.out.println();
 
-        System.out.println("--- Rutas Gastronomicas ---");
-        System.out.println(ruta1);
-        System.out.println(ruta2);
-        System.out.println();
+        }
 
-        System.out.println("--- Paseos Lacustres ---");
-        System.out.println(paseo1);
-        System.out.println(paseo2);
-        System.out.println();
-
-        System.out.println("--- Excursiones Culturales ---");
-        System.out.println(excursion1);
-        System.out.println(excursion2);
-        System.out.println();
-
-        System.out.println("==================================");
     }
+
 }
