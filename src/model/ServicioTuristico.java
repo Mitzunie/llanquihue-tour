@@ -1,6 +1,6 @@
 package model;
 
-public class ServicioTuristico {
+public class ServicioTuristico implements Registrable {
 
     private String nombre;
     private int duracionHoras;
@@ -20,6 +20,11 @@ public class ServicioTuristico {
 
     public void mostrarInformacion() {
         System.out.println(toString());
+    }
+
+    @Override
+    public void mostrarResumen() {
+        mostrarInformacion();
     }
 
     @Override
