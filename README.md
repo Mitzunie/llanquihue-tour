@@ -1,43 +1,40 @@
 # LlanquihueTourApp
 
-## Desarrollo Orientado a Objetos I - Semana 7
+## Desarrollo Orientado a Objetos I - Semana 8
 
 ## Descripción
 
 LlanquihueTourApp es un proyecto desarrollado para la asignatura **Desarrollo Orientado a Objetos I** de Duoc UC. El sistema representa distintos servicios turísticos ofrecidos por la agencia Llanquihue Tour utilizando los principios de la Programación Orientada a Objetos.
 
-En esta séptima semana se incorporan los conceptos de **polimorfismo** y **colecciones genéricas**, permitiendo gestionar distintos tipos de servicios turísticos mediante una única colección y recorrerlos dinámicamente utilizando referencias de la superclase.
+En esta octava semana se incorpora una **interfaz gráfica** mediante `JOptionPane`, permitiendo al usuario interactuar con el sistema para agregar y visualizar servicios turísticos de forma dinámica.
 
 ---
 
-# Objetivo de la Semana 7
+# Objetivo de la Semana 8
 
-Extender la jerarquía de clases creada en la Semana 6 para aplicar:
-
-- Polimorfismo.
-- Sobrescritura de métodos.
-- Colecciones genéricas (`List`).
-- Recorrido de objetos mediante un ciclo `for-each`.
+- Implementar una interfaz gráfica con `JOptionPane`.
+- Crear la interfaz `Registrable` para unificar contratos.
+- Permitir la gestión dinámica de servicios turísticos.
+- Aplicar polimorfismo en la visualización de entidades.
 
 ---
 
 # Estructura del proyecto
 
 ```
-src
-│
-├── model
-│   ├── ServicioTuristico.java
-│   ├── RutaGastronomica.java
-│   ├── PaseoLacustre.java
-│   ├── ExcursionCultural.java
-│   └── Guia.java
-│
-├── data
-│   └── GestorServicios.java
-│
-└── ui
-    └── Main.java
+src/
+├── model/
+│   ├── ServicioTuristico.java    # Superclase base
+│   ├── RutaGastronomica.java     # Servicio gastronómico
+│   ├── PaseoLacustre.java        # Servicio lacustre
+│   ├── ExcursionCultural.java    # Servicio cultural
+│   ├── Guia.java                 # Guía turístico
+│   └── Registrable.java          # Interfaz común
+├── data/
+│   └── GestorServicios.java      # Gestión de servicios
+└── ui/
+    ├── Main.java                 # Punto de entrada
+    └── Interfaz.java             # Interfaz gráfica (JOptionPane)
 ```
 
 ---
@@ -48,14 +45,18 @@ src
 
 ### ServicioTuristico
 
-Superclase que representa un servicio turístico genérico.
+Superclase que representa un servicio turístico genérico. Implementa la interfaz `Registrable`.
 
-Contiene:
+Atributos:
 
 - nombre
 - duracionHoras
-- método `mostrarInformacion()`
-- método `toString()`
+
+Métodos:
+
+- `mostrarInformacion()`
+- `mostrarResumen()` (de `Registrable`)
+- `toString()`
 
 ---
 
@@ -67,9 +68,10 @@ Atributo adicional:
 
 - numeroDeParadas
 
-Sobrescribe el método:
+Sobrescribe:
 
 - `mostrarInformacion()`
+- `mostrarResumen()`
 
 ---
 
@@ -81,9 +83,10 @@ Atributo adicional:
 
 - tipoEmbarcacion
 
-Sobrescribe el método:
+Sobrescribe:
 
 - `mostrarInformacion()`
+- `mostrarResumen()`
 
 ---
 
@@ -95,9 +98,20 @@ Atributo adicional:
 
 - lugarHistorico
 
-Sobrescribe el método:
+Sobrescribe:
 
 - `mostrarInformacion()`
+- `mostrarResumen()`
+
+---
+
+### Registrable
+
+Interfaz que define el contrato común para todas las entidades del sistema.
+
+Método:
+
+- `mostrarResumen()`
 
 ---
 
@@ -116,16 +130,20 @@ Gestiona la colección de servicios turísticos.
 Implementa una colección genérica:
 
 ```java
-List<ServicioTuristico>
+ArrayList<Registrable>
 ```
 
-Dentro de ella almacena:
+Almacena:
 
 - 2 Rutas Gastronómicas
 - 2 Paseos Lacustres
 - 2 Excursiones Culturales
 
-Posteriormente recorre la colección utilizando un ciclo **for-each**, invocando el método `mostrarInformacion()` para cada objeto.
+Métodos principales:
+
+- `agregarEntidad(Registrable)` — permite agregar nuevas entidades desde la GUI.
+- `obtenerServicios()` — devuelve un `String` con toda la información para mostrar en `JOptionPane`.
+- `mostrarServicios()` — imprime por consola (compatibilidad con Semana 7).
 
 ---
 
@@ -133,22 +151,32 @@ Posteriormente recorre la colección utilizando un ciclo **for-each**, invocando
 
 ### Main
 
-Clase principal del proyecto.
+Clase principal del proyecto. Crea una instancia de `Interfaz` y ejecuta el menú principal.
 
-Su función es crear una instancia de `GestorServicios` y ejecutar la visualización de todos los servicios turísticos.
+### Interfaz
+
+Interfaz gráfica basada en `JOptionPane`. Presenta un menú con las siguientes opciones:
+
+1. Agregar Ruta Gastronómica
+2. Agregar Paseo Lacustre
+3. Agregar Excursión Cultural
+4. Mostrar Servicios
+5. Salir
 
 ---
 
-# Cambios realizados en la Semana 7
+# Cambios realizados en la Semana 8
 
-Se realizaron las siguientes modificaciones respecto de la Semana 6:
+Respecto de la Semana 7:
 
-- Se incorporó el método `mostrarInformacion()` en la superclase `ServicioTuristico`.
-- Se sobrescribió `mostrarInformacion()` en todas las subclases utilizando la anotación `@Override`.
-- Se reemplazó la creación individual de objetos por una colección genérica `List<ServicioTuristico>`.
-- Se almacenaron diferentes tipos de servicios turísticos dentro de la misma colección.
-- Se implementó un recorrido utilizando un ciclo `for-each`.
-- Se aplicó polimorfismo al invocar `mostrarInformacion()` desde referencias de tipo `ServicioTuristico`.
+- Se creó la interfaz `Registrable` con el método `mostrarResumen()`.
+- `ServicioTuristico` ahora implementa `Registrable`.
+- Se agregó `mostrarResumen()` en todas las subclases.
+- `GestorServicios` cambia de `List<ServicioTuristico>` a `ArrayList<Registrable>`.
+- Se agregó el método `agregarEntidad()` para gestión dinámica.
+- Se agregó el método `obtenerServicios()` que retorna un `String`.
+- Se creó la clase `Interfaz` con menú basado en `JOptionPane`.
+- `Main` ahora instancia `Interfaz` en lugar de `GestorServicios`.
 
 ---
 
@@ -159,15 +187,15 @@ Se realizaron las siguientes modificaciones respecto de la Semana 6:
 - Polimorfismo
 - Sobrescritura de métodos
 - Uso de `@Override`
-- Colecciones genéricas (`List`)
-- `ArrayList`
-- Ciclo `for-each`
+- Interfaces (`Registrable`)
+- Colecciones genéricas (`ArrayList`)
+- Interfaz gráfica (`JOptionPane`)
 
 ---
 
 # Ejecución del proyecto
 
-1. Abrir el proyecto en el IDE de preferencia.
+1. Abrir el proyecto en IntelliJ IDEA (u otro IDE Java).
 2. Compilar el proyecto.
 3. Ejecutar la clase:
 
@@ -179,15 +207,15 @@ ui.Main
 
 # Salida esperada
 
-El programa mostrará por consola la información de todos los servicios turísticos registrados.
+El programa mostrará un menú gráfico con las opciones del sistema.
 
-Se visualizarán:
+Al seleccionar **Mostrar Servicios**, se desplegará un cuadro de diálogo con la información de todos los servicios turísticos registrados:
 
 - Rutas Gastronómicas
 - Paseos Lacustres
 - Excursiones Culturales
 
-Cada servicio ejecutará automáticamente su propia implementación del método `mostrarInformacion()`, demostrando el uso del polimorfismo.
+Cada servicio ejecutará automáticamente su propia implementación del método `toString()`, demostrando el uso del polimorfismo.
 
 ---
 
