@@ -9,6 +9,10 @@ public class RutaGastronomica extends ServicioTuristico {
         this.numeroDeParadas = numeroDeParadas;
     }
 
+    public int getNumeroDeParadas() {
+        return numeroDeParadas;
+    }
+
     @Override
     public void mostrarInformacion() {
         System.out.println(

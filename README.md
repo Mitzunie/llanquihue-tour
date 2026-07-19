@@ -1,21 +1,22 @@
 # LlanquihueTourApp
 
-## Desarrollo Orientado a Objetos I - Semana 8
+## Desarrollo Orientado a Objetos I - Semana 9
 
 ## Descripción
 
 LlanquihueTourApp es un proyecto desarrollado para la asignatura **Desarrollo Orientado a Objetos I** de Duoc UC. El sistema representa distintos servicios turísticos ofrecidos por la agencia Llanquihue Tour utilizando los principios de la Programación Orientada a Objetos.
 
-En esta octava semana se incorpora una **interfaz gráfica** mediante `JOptionPane`, permitiendo al usuario interactuar con el sistema para agregar y visualizar servicios turísticos de forma dinámica.
+En esta novena semana se incorpora **persistencia con archivos de texto**, permitiendo que los servicios turísticos se carguen desde un archivo al iniciar la aplicación y se guarden de forma permanente cuando el usuario agrega nuevos servicios. También se agrega la posibilidad de **buscar servicios por nombre** y **recargar el archivo** desde la interfaz.
 
 ---
 
-# Objetivo de la Semana 8
+# Objetivo de la Semana 9
 
-- Implementar una interfaz gráfica con `JOptionPane`.
-- Crear la interfaz `Registrable` para unificar contratos.
-- Permitir la gestión dinámica de servicios turísticos.
-- Aplicar polimorfismo en la visualización de entidades.
+- Implementar lectura y escritura de archivos de texto.
+- Persistir los servicios turísticos en un archivo externo.
+- Agregar búsqueda de servicios por nombre.
+- Permitir recarga dinámica del archivo de datos.
+- Aplicar manejo de excepciones en la interfaz gráfica.
 
 ---
 
@@ -28,10 +29,14 @@ src/
 │   ├── RutaGastronomica.java     # Servicio gastronómico
 │   ├── PaseoLacustre.java        # Servicio lacustre
 │   ├── ExcursionCultural.java    # Servicio cultural
-│   ├── Guia.java                 # Guía turístico
-│   └── Registrable.java          # Interfaz común
+│   ├── Registrable.java          # Interfaz común
+│   └── Guia.java                 # Guía turístico (sin uso activo)
 ├── data/
-│   └── GestorServicios.java      # Gestión de servicios
+│   ├── GestorServicios.java      # Gestión de servicios
+│   ├── LectorArchivo.java        # Lectura del archivo de servicios
+│   └── EscrituraArchivo.java     # Escritura del archivo de servicios
+├── datos/
+│   └── servicios.txt             # Archivo de persistencia
 └── ui/
     ├── Main.java                 # Punto de entrada
     └── Interfaz.java             # Interfaz gráfica (JOptionPane)
@@ -117,7 +122,7 @@ Método:
 
 ### Guia
 
-Clase heredada de actividades anteriores que se mantiene dentro del proyecto.
+Clase heredada de semanas anteriores que se mantiene dentro del proyecto para conservar la continuidad del historial. Actualmente no se encuentra en uso.
 
 ---
 
@@ -133,17 +138,64 @@ Implementa una colección genérica:
 ArrayList<Registrable>
 ```
 
-Almacena:
-
-- 2 Rutas Gastronómicas
-- 2 Paseos Lacustres
-- 2 Excursiones Culturales
+Al inicio, carga los servicios desde el archivo `datos/servicios.txt` mediante `LectorArchivo`. Cuando el usuario agrega un nuevo servicio, lo guarda tanto en la colección como en el archivo mediante `EscrituraArchivo`.
 
 Métodos principales:
 
-- `agregarEntidad(Registrable)` — permite agregar nuevas entidades desde la GUI.
+- `agregarEntidad(Registrable)` — agrega un servicio y lo persiste en el archivo.
+- `buscarServicio(String nombre)` — busca un servicio por nombre (ignorando mayúsculas/minúsculas).
 - `obtenerServicios()` — devuelve un `String` con toda la información para mostrar en `JOptionPane`.
-- `mostrarServicios()` — imprime por consola (compatibilidad con Semana 7).
+- `mostrarServicios()` — imprime por consola.
+- `recargarServicios()` — vuelve a leer el archivo y actualiza la colección.
+
+---
+
+### LectorArchivo
+
+Se encarga de leer el archivo `datos/servicios.txt` y convertir cada línea en un objeto del tipo correspondiente.
+
+El formato del archivo es:
+
+```
+TIPO;nombre;duracion;atributo_extra
+```
+
+Donde `TIPO` puede ser `RUTA`, `PASEO` o `EXCURSION`.
+
+Método principal:
+
+- `cargarServicios()` — devuelve un `ArrayList<Registrable>` con los servicios leídos.
+
+---
+
+### EscrituraArchivo
+
+Se encarga de agregar una nueva línea al archivo `datos/servicios.txt` cada vez que se registra un servicio.
+
+Detecta el tipo de entidad (`RutaGastronomica`, `PaseoLacustre` o `ExcursionCultural`) y escribe los datos en el formato correspondiente.
+
+Método principal:
+
+- `guardarServicio(Registrable)` — escribe el servicio al final del archivo.
+
+---
+
+## datos
+
+### servicios.txt
+
+Archivo de texto que almacena los servicios turísticos de forma persistente.
+
+Contenido inicial:
+
+```
+RUTA;Sabores de Puerto Varas;3;5
+RUTA;Ruta de la Cerveza Artesanal;4;4
+PASEO;Navegación Lago Llanquihue;2;Catamarán
+PASEO;Travesía Isla de los Alerces;5;Lancha
+EXCURSION;Iglesia de Achao;2;Achao
+EXCURSION;Museo Colonial Alemán;3;Frutillar
+```
 
 ---
 
@@ -160,29 +212,36 @@ Interfaz gráfica basada en `JOptionPane`. Presenta un menú con las siguientes 
 1. Agregar Ruta Gastronómica
 2. Agregar Paseo Lacustre
 3. Agregar Excursión Cultural
-4. Mostrar Servicios
-5. Salir
+4. Buscar Servicio
+5. Mostrar Servicios
+6. Recargar Archivo
+7. Salir
+
+Maneja excepciones de tipo `NumberFormatException` cuando el usuario ingresa valores no numéricos, y valida entradas nulas o vacías en la búsqueda.
 
 ---
 
-# Cambios realizados en la Semana 8
+# Cambios realizados en la Semana 9
 
-Respecto de la Semana 7:
+Respecto de la Semana 8:
 
-- Se creó la interfaz `Registrable` con el método `mostrarResumen()`.
-- `ServicioTuristico` ahora implementa `Registrable`.
-- Se agregó `mostrarResumen()` en todas las subclases.
-- `GestorServicios` cambia de `List<ServicioTuristico>` a `ArrayList<Registrable>`.
-- Se agregó el método `agregarEntidad()` para gestión dinámica.
-- Se agregó el método `obtenerServicios()` que retorna un `String`.
-- Se creó la clase `Interfaz` con menú basado en `JOptionPane`.
-- `Main` ahora instancia `Interfaz` en lugar de `GestorServicios`.
+- Se creó la clase `LectorArchivo` para leer servicios desde un archivo de texto.
+- Se creó la clase `EscrituraArchivo` para persistir servicios en el archivo.
+- Se creó el archivo `datos/servicios.txt` con 6 servicios iniciales.
+- `GestorServicios` ahora carga los servicios desde el archivo al iniciar, en vez de crearlos con datos hardcodeados.
+- `agregarEntidad()` ahora guarda el servicio en el archivo además de agregarlo a la colección.
+- Se agregó el método `buscarServicio(String nombre)` que permite encontrar un servicio por su nombre.
+- Se agregó el método `recargarServicios()` que vuelve a leer el archivo desde disco.
+- Se agregaron métodos getter en las subclases (`getNumeroDeParadas()`, `getTipoEmbarcacion()`, `getLugarHistorico()`) para que `EscrituraArchivo` pueda acceder a los atributos privados.
+- `Interfaz` se amplió de 5 a 7 opciones, incluyendo Buscar, Mostrar y Recargar.
+- Se agregó manejo de excepciones en `Interfaz` para evitar que el programa se cierre con entradas inválidas.
+- Se documentó `Guia` con un comentario que indica que no se encuentra en uso activo.
 
 ---
 
 # Conceptos aplicados
 
-- Programación Orientada a Objetos (POO)
+- Programación Orientado a Objetos (POO)
 - Herencia
 - Polimorfismo
 - Sobrescritura de métodos
@@ -190,6 +249,10 @@ Respecto de la Semana 7:
 - Interfaces (`Registrable`)
 - Colecciones genéricas (`ArrayList`)
 - Interfaz gráfica (`JOptionPane`)
+- Lectura y escritura de archivos (`BufferedReader`, `BufferedWriter`)
+- Persistencia de datos en archivo de texto
+- Manejo de excepciones (`try-catch`)
+- Expresiones `instanceof` con pattern matching
 
 ---
 
@@ -209,13 +272,16 @@ ui.Main
 
 El programa mostrará un menú gráfico con las opciones del sistema.
 
-Al seleccionar **Mostrar Servicios**, se desplegará un cuadro de diálogo con la información de todos los servicios turísticos registrados:
+Al ejecutar por primera vez, se cargarán los 6 servicios iniciales desde el archivo `datos/servicios.txt`.
 
-- Rutas Gastronómicas
-- Paseos Lacustres
-- Excursiones Culturales
+Las opciones disponibles son:
 
-Cada servicio ejecutará automáticamente su propia implementación del método `toString()`, demostrando el uso del polimorfismo.
+- **Agregar**: permite registrar nuevos servicios que se guardan permanentemente en el archivo.
+- **Buscar**: encuentra un servicio por nombre y muestra su información.
+- **Mostrar Servicios**: despliega un cuadro de diálogo con todos los servicios registrados.
+- **Recargar**: vuelve a leer el archivo desde disco, útil si se edita manualmente.
+
+Cada servicio ejecuta automáticamente su propia implementación del método `toString()`, demostrando el uso del polimorfismo.
 
 ---
 

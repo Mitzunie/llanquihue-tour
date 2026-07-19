@@ -13,46 +13,36 @@ public class GestorServicios {
     private ArrayList<Registrable> entidades;
 
     public GestorServicios() {
-
-        entidades = new ArrayList<>();
-
-        entidades.add(new RutaGastronomica(
-                "Sabores de Puerto Varas",
-                3,
-                5));
-
-        entidades.add(new RutaGastronomica(
-                "Ruta de la Cerveza Artesanal",
-                4,
-                4));
-
-        entidades.add(new PaseoLacustre(
-                "Navegación Lago Llanquihue",
-                2,
-                "Catamarán"));
-
-        entidades.add(new PaseoLacustre(
-                "Travesía Isla de los Alerces",
-                5,
-                "Lancha"));
-
-        entidades.add(new ExcursionCultural(
-                "Iglesia de Achao",
-                2,
-                "Achao"));
-
-        entidades.add(new ExcursionCultural(
-                "Museo Colonial Alemán",
-                3,
-                "Frutillar"));
+        recargarServicios();
     }
 
-    // Permite agregar nuevas entidades desde la GUI
     public void agregarEntidad(Registrable entidad) {
+
         entidades.add(entidad);
+
+        EscrituraArchivo escritor = new EscrituraArchivo();
+        escritor.guardarServicio(entidad);
+
     }
 
-    // Devuelve toda la información para mostrarla en JOptionPane
+    public ServicioTuristico buscarServicio(String nombre) {
+
+        for (Registrable entidad : entidades) {
+
+            if (entidad instanceof ServicioTuristico servicio) {
+
+                if (servicio.getNombre().equalsIgnoreCase(nombre)) {
+                    return servicio;
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
     public String obtenerServicios() {
 
         StringBuilder sb = new StringBuilder();
@@ -70,14 +60,23 @@ public class GestorServicios {
             if (entidad instanceof ServicioTuristico servicio) {
                 sb.append(servicio.toString()).append("\n\n");
             }
+
         }
 
         return sb.toString();
+
     }
 
-    // Se mantiene por compatibilidad con la Semana 7
     public void mostrarServicios() {
         System.out.println(obtenerServicios());
+    }
+
+    public void recargarServicios() {
+
+        LectorArchivo lector = new LectorArchivo();
+
+        entidades = lector.cargarServicios();
+
     }
 
 }

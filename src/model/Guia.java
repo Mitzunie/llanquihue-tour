@@ -1,5 +1,12 @@
 package model;
 
+/*
+*         Se deja para mantener continuidad con semanas anteriores
+*             Esto para evitar confusiones, actualmente no se
+*                           Encuentra en uso.
+*/
+
+
 public class Guia {
 
     private String nombre;

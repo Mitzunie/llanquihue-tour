@@ -1,0 +1,6 @@
+RUTA;Sabores de Puerto Varas;3;5
+RUTA;Ruta de la Cerveza Artesanal;4;4
+PASEO;Navegación Lago Llanquihue;2;Catamarán
+PASEO;Travesía Isla de los Alerces;5;Lancha
+EXCURSION;Iglesia de Achao;2;Achao
+EXCURSION;Museo Colonial Alemán;3;Frutillar
