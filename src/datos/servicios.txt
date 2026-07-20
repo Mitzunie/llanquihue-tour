@@ -4,3 +4,4 @@ PASEO;Navegación Lago Llanquihue;2;Catamarán
 PASEO;Travesía Isla de los Alerces;5;Lancha
 EXCURSION;Iglesia de Achao;2;Achao
 EXCURSION;Museo Colonial Alemán;3;Frutillar
+PASEO;Navegando por Prto Varas;2;Lancha

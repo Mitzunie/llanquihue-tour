@@ -6,7 +6,7 @@ public class Main {
 
         Interfaz interfaz = new Interfaz();
 
-        interfaz.iniciar();zcd cdcdcdcdcdcdc
+        interfaz.iniciar();
 
     }
 

@@ -1,8 +1,10 @@
 package data;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import model.ExcursionCultural;
 import model.PaseoLacustre;
@@ -17,6 +19,16 @@ public class EscrituraArchivo {
     public void guardarServicio(Registrable entidad) {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(RUTA_ARCHIVO, true))) {
+
+            File archivo = new File(RUTA_ARCHIVO);
+            if (archivo.exists() && archivo.length() > 0) {
+                try (RandomAccessFile raf = new RandomAccessFile(archivo, "r")) {
+                    raf.seek(raf.length() - 1);
+                    if (raf.read() != '\n') {
+                        bw.newLine();
+                    }
+                }
+            }
 
             if (entidad instanceof RutaGastronomica ruta) {
 
