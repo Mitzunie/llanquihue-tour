@@ -12,7 +12,7 @@ import model.ServicioTuristico;
 
 public class EscrituraArchivo {
 
-    private static final String RUTA_ARCHIVO = "datos/servicios.txt";
+    private static final String RUTA_ARCHIVO = "src/datos/servicios.txt";
 
     public void guardarServicio(Registrable entidad) {
 
