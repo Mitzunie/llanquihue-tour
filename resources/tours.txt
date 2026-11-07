@@ -1,5 +1,0 @@
-RutaLagos;Aventura;25000
-VolcanOsorno;Aventura;35000
-FrutillarCultural;Cultural;18000
-SaboresDelSur;Gastronomico;22000
-NavegacionLlanquihue;Lacustre;40000
