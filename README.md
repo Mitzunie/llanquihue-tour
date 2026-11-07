@@ -1,30 +1,25 @@
-# Llanquihue Tour — Semana 3
+# Llanquihue Tour
 
-Proyecto de Desarrollo Orientado a Objetos I. Representa personas y empleados de la agencia Llanquihue Tour, junto con sus direcciones.
+## Descripción
+Aplicación Java que lee información de tours desde un archivo
+de texto, crea objetos Tour y los almacena en un ArrayList.
 
-## Autor
-Mitzunie (usuario de GitHub).
+## Estructura de carpetas
 
-## Clases y paquetes
-- `model.Direccion`: calle, número y ciudad.
-- `model.Persona`: nombre, teléfono y dirección.
-- `model.Empleado`: hereda de Persona y agrega cargo y sueldo.
-- `app.Main`: crea un cliente y dos empleados, y muestra sus datos.
+```
+src/
+├── model/
+├── data/
+└── ui/
 
-Persona contiene un objeto Direccion. Empleado reutiliza los datos y métodos de Persona mediante herencia. Los atributos son privados y se accede a ellos con getters y setters.
-
-## Abrir en IntelliJ IDEA
-1. Descargar o clonar este repositorio seleccionando la rama `Semana3`.
-2. Abrir la carpeta del proyecto en IntelliJ IDEA.
-3. Seleccionar un JDK 21 o posterior en File > Project Structure > Project.
-4. Abrir `src/app/Main.java` y ejecutar el método `main` con el botón verde.
-
-## Compilar y ejecutar
-Con un JDK 21 o posterior instalado, desde la carpeta del proyecto:
-
-```sh
-javac -encoding UTF-8 -d out src/model/Direccion.java src/model/Persona.java src/model/Empleado.java src/app/Main.java
-java -cp out app.Main
+resources/
+└── tours.txt
 ```
 
-La consola muestra los datos de Ana, Diego y Camila, incluyendo sus direcciones y los cargos y sueldos de los empleados.
+## Instrucciones para ejecutar la clase Main
+
+1. Abrir el proyecto en IntelliJ IDEA.
+2. Ejecutar la clase Main.java ubicada en src/ui/Main.java.
+3. El sistema cargará los tours desde tours.txt.
+4. Mostrará todos los tours y luego filtrará aquellos cuyo
+   precio sea superior a $25.000.
