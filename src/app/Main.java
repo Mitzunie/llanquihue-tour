@@ -6,6 +6,7 @@ import model.Persona;
 
 /** Prueba las clases de Llanquihue Tour. */
 public class Main {
+
     /** Crea tres personas y muestra sus datos. */
     public static void main(String[] args) {
         Persona cliente = new Persona("Ana Pérez", "+56 9 1234 5678",
