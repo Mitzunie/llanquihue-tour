@@ -1,5 +1,6 @@
 package data;
 
+import model.Direccion;
 import model.Guia;
 import model.Tour;
 
@@ -22,21 +23,27 @@ public class GestorDatos {
 
                 try {
 
-                    String[] datos = linea.split(";");
+                    String[] datos = linea.split(";", -1);
 
-                    if (datos.length != 5) {
+                    if (datos.length != 5 && datos.length != 7) {
                         System.out.println("Linea invalida: " + linea);
                         continue;
                     }
 
                     String nombreTour = datos[0];
                     String tipo = datos[1];
-                    int precio = Integer.parseInt(datos[2]);
+                    int precio = Integer.parseInt(datos[2].trim());
 
                     String nombreGuia = datos[3];
                     String telefonoGuia = datos[4];
 
-                    Guia guia = new Guia(nombreGuia, telefonoGuia);
+                    // Los archivos anteriores tienen 5 campos, sin direccion.
+                    Direccion direccion = new Direccion();
+                    if (datos.length == 7) {
+                        direccion = new Direccion(datos[5], datos[6]);
+                    }
+
+                    Guia guia = new Guia(nombreGuia, telefonoGuia, direccion);
 
                     Tour tour = new Tour(
                             nombreTour,
@@ -49,6 +56,8 @@ public class GestorDatos {
 
                 } catch (NumberFormatException e) {
                     System.out.println("Error en precio: " + linea);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Registro invalido: " + e.getMessage());
                 }
 
             }

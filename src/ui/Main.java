@@ -38,7 +38,7 @@ public class Main {
         System.out.println("\n=== BUSQUEDA POR TIPO ===");
         System.out.print("Ingrese tipo de tour: ");
 
-        String tipoBuscado = scanner.nextLine();
+        String tipoBuscado = scanner.nextLine().trim();
 
         boolean encontrado = false;
 

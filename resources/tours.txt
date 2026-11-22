@@ -1,5 +1,5 @@
-Ruta Lagos;Aventura;25000;Pedro Soto;987654321
-Volcan Osorno;Aventura;35000;Maria Perez;912345678
-Puerto Varas;Cultural;20000;Juan Diaz;998877665
-Frutillar;Cultural;28000;Ana Torres;956321478
-Saltos Petrohue;Naturaleza;30000;Carlos Ruiz;944556677
+Ruta Lagos;Aventura;25000;Pedro Soto;987654321;Los Alerces 120;Llanquihue
+Volcan Osorno;Aventura;35000;Maria Perez;912345678;Los Lagos 250;Puerto Varas
+Puerto Varas;Cultural;20000;Juan Diaz;998877665;San Pedro 80;Puerto Varas
+Frutillar;Cultural;28000;Ana Torres;956321478;Las Rosas 85;Frutillar
+Saltos Petrohue;Naturaleza;30000;Carlos Ruiz;944556677;Los Coihues 45;Ensenada
